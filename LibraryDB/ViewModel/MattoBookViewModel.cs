@@ -12,7 +12,7 @@ namespace LibraryDB.ViewModel
     {
         public Book Book { get; set; }
 
-        private BookRepository BookDB = new BookRepository();
+        
 
         public ICommand cmdSaveBook { get; set; }
         public MattoBookViewModel(Book book)
@@ -24,7 +24,7 @@ namespace LibraryDB.ViewModel
 
         private void cmdSaveBookMethod(Book book)
         {
-            BookDB.InsertOrUpdate(book);
+            App.BookDB.InsertOrUpdate(book);
             App.Current.MainPage.Navigation.PopAsync();
         }
     }

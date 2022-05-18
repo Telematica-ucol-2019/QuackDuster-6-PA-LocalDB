@@ -29,7 +29,7 @@
                             >
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Book">
-                        <Grid RowDefinitions="100,auto" ColumnDefinitions="100., *"  BackgroundColor="DeepSkyBlue">
+                        <Grid RowDefinitions="110,auto" ColumnDefinitions="110., *"  BackgroundColor="WhiteSmoke">
                             <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
                                    HeightRequest="60"
                                    WidthRequest="60"

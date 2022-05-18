@@ -5,6 +5,7 @@ using LibraryDB.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -13,7 +14,7 @@ namespace LibraryDB.ViewModel
 {
     public class IndexViewModel : BaseViewModel
     {
-        private BookRepository BookDB = new BookRepository();
+      
         public ObservableCollection<Book> Books { get; set; }
 
         public ICommand cmdAddBook { get; set; }
@@ -40,6 +41,19 @@ namespace LibraryDB.ViewModel
                 .RuleFor(c => c.Description, f => f.Name.FirstName())
                 .RuleFor(c => c.Autor, f => f.Name.FullName());
 
+            Random rnd = new Random();
+            DateTime datetoday = DateTime.Now;
+
+            int rndYear = rnd.Next(1970, datetoday.Year);
+            int rndMonth = rnd.Next(1, 12);
+            int rndDay = rnd.Next(1, 31);
+
+            DateTime generateDate = new DateTime(rndYear, rndMonth, rndDay);
+
+            Debug.WriteLine($"Random Date Generated: {generateDate}");
+            book.ReleaseDate = new ReleaseDate() { RlsDate = generateDate };
+
+
             App.Current.MainPage.Navigation.PushAsync(new MattoBook(book));
         }
 
@@ -48,11 +62,11 @@ namespace LibraryDB.ViewModel
             if(Books != null)
             {
                 Books.Clear();
-                BookDB.GetAll().ForEach(item => Books.Add(item));
+                App.BookDB.GetAll().ForEach(item => Books.Add(item));
             }
             else
             {
-                Books = new ObservableCollection<Book>(BookDB.GetAll());
+                Books = new ObservableCollection<Book>(App.BookDB.GetAll());
             }
             OnPropertyChanged();
         }
