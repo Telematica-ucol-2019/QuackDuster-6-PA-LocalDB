@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LibraryDB.Views.MattoBook"
+             Title="MAINTEINANCE BOOK"
+             BackgroundColor="LightGray"
+             x:Name="this"
+             >
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White" Margin="10,10" BindingContext="{Binding Book}">
+            <Grid RowDefinitions="auto,auto,auto,auto,auto,auto,*,auto" ColumnDefinitions="auto,*">
+                <Label Text="Title" Grid.Row="0" Grid.Column="0"/>
+                <Entry Text="{Binding Title}" Grid.Row="1" Grid.Column="1"/>
+                <Label Text="Editorial" Grid.Row="2" Grid.Column="0"/>
+                <Entry Text="{Binding Editorial}" Grid.Row="2" Grid.Column="1"/>
+                <Label Text="Description" Grid.Row="3" Grid.Column="0"/>
+                <Entry Text="{Binding Description}" Grid.Row="3" Grid.Column="1"/>
+                <Label Text="Autor" Grid.Row="4" Grid.Column="0"/>
+                <Entry Text="{Binding Autor}" Grid.Row="4" Grid.Column="1"/>
+            </Grid>
+
+            <StackLayout Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="EndAndExpand">
+                <Button Text="CANCEL" BackgroundColor="Red" TextColor="White"/>
+                <Button Text="UPDATE" 
+                        BackgroundColor="Blue" 
+                        TextColor="White"
+                        Command="{Binding BindingContext.cmdSaveBook, Source={x:Reference this}}"
+                        CommandParameter="{Binding .}"
+                        />
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

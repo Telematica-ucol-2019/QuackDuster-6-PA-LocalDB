@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:model="clr-namespace:LibraryDB.Models"
+             x:Class="LibraryDB.Views.Index"
+             BackgroundColor="LightGray"
+             x:Name="this">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="BOOKS" TextColor="White" 
+                   HorizontalOptions="FillAndExpand"
+                   />
+            <Label Text="➕" 
+                   TextColor="White"
+                   Margin="0,0,15,0"
+                   >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding cmdAddBook}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    
+    <ContentPage.Content>
+        <Grid RowDefinitions="*" ColumnDefinitions="*">
+            <CollectionView ItemsSource="{Binding Books}" 
+                            BackgroundColor="White"
+                            Margin="5,5"
+                            >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Book">
+                        <Grid RowDefinitions="100,auto" ColumnDefinitions="100., *"  BackgroundColor="DeepSkyBlue">
+                            <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                                   HeightRequest="60"
+                                   WidthRequest="60"
+                                   Aspect="AspectFit"
+                                   Margin="5,0,0,0"
+                                   />
+
+                            <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span  Text="Title: &#10;"/>
+                                            <Span  Text="{Binding Title}" FontAttributes="Bold"/>
+                                            <Span Grid.Row="0" Grid.Column="1" Text="&#10;"/>
+                                            <Span Grid.Row="1" Grid.Column="2" Text="Description: &#10;"/>
+                                            <Span Grid.Row="1" Grid.Column="2" Text="{Binding Description}" FontAttributes="Bold"/>
+                                            <Span Grid.Row="1" Grid.Column="2" Text="&#10;"/>
+                                            <Span Grid.Row="2" Grid.Column="3" Text="Autor: &#10;"/>
+                                            <Span Grid.Row="2" Grid.Column="3" Text="{Binding Autor}" FontAttributes="Bold"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Text="M" HorizontalOptions="EndAndExpand" Margin="0,0,15,0">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.cmdModifyBook, Source={x:Reference this}}"
+                                                              CommandParameter="{Binding .}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+
+                            <BoxView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="1" Color="LightGray"/>
+                        </Grid>
+                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
